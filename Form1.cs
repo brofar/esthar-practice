@@ -22,17 +22,15 @@ namespace esthar_practice
         public Form1()
         {
             InitializeComponent();
+
+            // https://ourcodeworld.com/articles/read/573/how-to-register-a-single-or-multiple-global-hotkeys-for-a-single-key-in-winforms
             // Set an unique id to your Hotkey, it will be used to
             // identify which hotkey was pressed in your code to execute something
             int UniqueHotkeyId = 1;
-            // Set the Hotkey triggerer the F9 key 
-            // Expected an integer value for F9: 0x78, but you can convert the Keys.KEY to its int value
-            // See: https://msdn.microsoft.com/en-us/library/windows/desktop/dd375731(v=vs.85).aspx
             int HotKeyCode = (int)Keys.F6;
-            // Register the "F9" hotkey
-            Boolean F9Registered = RegisterHotKey(
-                this.Handle, UniqueHotkeyId, 0x0000, HotKeyCode
-            );
+
+            // Register the hotkey
+            Boolean F9Registered = RegisterHotKey(this.Handle, UniqueHotkeyId, 0x0000, HotKeyCode);
 
             // 4. Verify if the hotkey was succesfully registered, if not, show message in the console
             if (!F9Registered)
@@ -45,21 +43,19 @@ namespace esthar_practice
             if (m.Msg == 0x0312)
             {
                 int id = m.WParam.ToInt32();
-                // MessageBox.Show(string.Format("Hotkey #{0} pressed", id));
 
-                if (id == 1)
+                // Do something based on which hotkey was pressed
+                switch(id)
                 {
-                    Begin();
+                    case 1:
+                        Begin();
+                        break;
                 }
             }
 
             base.WndProc(ref m);
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
         private void Btn_Go_Click(object sender, EventArgs e)
         {
             Begin();
