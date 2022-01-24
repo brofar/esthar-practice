@@ -144,15 +144,15 @@ namespace esthar_practice
             byte[] stepId, StepFrac, TotalEncs, DangerValue, Offset, LastEncId;
             try
             {
-                stepId = BitConverter.GetBytes(Convert.ToInt32(txt_stepId.Text));
-                StepFrac = BitConverter.GetBytes(Convert.ToInt32(txt_stepFraction.Text));
-                TotalEncs = BitConverter.GetBytes(Convert.ToInt32(txt_totalEncounters.Text));
-                DangerValue = BitConverter.GetBytes(Convert.ToInt32(txt_dangerValue.Text));
-                Offset = BitConverter.GetBytes(Convert.ToInt32(txt_offset.Text));
-                LastEncId = BitConverter.GetBytes(Convert.ToInt32(txt_prevEncId.Text));
+                stepId = BitConverter.GetBytes(Convert.ToInt32(num_stepId.Value));
+                StepFrac = BitConverter.GetBytes(Convert.ToInt32(num_fraction.Value));
+                TotalEncs = BitConverter.GetBytes(Convert.ToInt32(num_totalEnc.Value));
+                DangerValue = BitConverter.GetBytes(Convert.ToInt32(num_danger.Value));
+                Offset = BitConverter.GetBytes(Convert.ToInt32(num_offset.Value));
+                LastEncId = BitConverter.GetBytes(Convert.ToInt32(num_lastEnc.Value));
 
                 // Write to game memory.
-                reader.WriteProcessMemory(addressStepId, stepId, out int _);                
+                reader.WriteProcessMemory(addressStepId, stepId, out int _);
                 reader.WriteProcessMemory(addressStepFrac, StepFrac, out int _);
                 reader.WriteProcessMemory(addressTotalEncs, TotalEncs, out int _);
                 reader.WriteProcessMemory(addressOffset, Offset, out int _);
@@ -164,7 +164,7 @@ namespace esthar_practice
 
                 SystemSounds.Exclamation.Play();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 SetStatusText("Error parsing values.");
                 return;
@@ -186,8 +186,7 @@ namespace esthar_practice
                 SetStatusText("Updates: Running latest version.");
             }
         }
-
-        private void lbl_status_Click(object sender, EventArgs e)
+        private void Lbl_Status_Click(object sender, EventArgs e)
         {
             if(appUpdateAvailable)
                 Process.Start("https://github.com/brofar/esthar-practice/releases/latest");
