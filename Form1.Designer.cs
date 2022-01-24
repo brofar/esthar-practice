@@ -165,6 +165,7 @@ namespace esthar_practice
             this.lbl_status.Size = new System.Drawing.Size(273, 17);
             this.lbl_status.TabIndex = 16;
             this.lbl_status.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbl_status.Click += new System.EventHandler(this.lbl_status_Click);
             // 
             // Form1
             // 

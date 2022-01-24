@@ -17,12 +17,19 @@ namespace esthar_practice
         // GLOBAL HOTKEY STUFF
         [DllImport("user32.dll")]
         public static extern
-       bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, int vk);
+        bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, int vk);
+
+        // UPDATE STUFF
+        bool appUpdateAvailable = false;
 
         public Form1()
         {
             InitializeComponent();
 
+            // Check for updates.
+            CheckForUpdates();
+
+            // Register Hotkey
             // https://ourcodeworld.com/articles/read/573/how-to-register-a-single-or-multiple-global-hotkeys-for-a-single-key-in-winforms
             // Set an unique id to your Hotkey, it will be used to
             // identify which hotkey was pressed in your code to execute something
@@ -162,6 +169,28 @@ namespace esthar_practice
                 SetStatusText("Error parsing values.");
                 return;
             }
+        }
+        private async void CheckForUpdates()
+        {
+            SetStatusText("Checking for updates...");
+
+            bool updateRequired = await Task.Run(Updater.IsUpdateRequired);
+            appUpdateAvailable = updateRequired;
+
+            if (updateRequired)
+            {
+                SetStatusText("New version available. Click here to download.");
+            }
+            else
+            {
+                SetStatusText("Updates: Running latest version.");
+            }
+        }
+
+        private void lbl_status_Click(object sender, EventArgs e)
+        {
+            if(appUpdateAvailable)
+                Process.Start("https://github.com/brofar/esthar-practice/releases/latest");
         }
     }
 
