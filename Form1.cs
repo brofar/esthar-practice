@@ -14,19 +14,10 @@ namespace esthar_practice
 {
     public partial class Form1 : Form
     {
+        // GLOBAL HOTKEY STUFF
         [DllImport("user32.dll")]
         public static extern
        bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, int vk);
-        [DllImport("user32")]
-        public static extern
-        bool GetMessage(ref Message lpMsg, IntPtr handle, uint mMsgFilterInMain, uint mMsgFilterMax);
-
-        public const int MOD_ALT = 0x0001;
-        public const int MOD_CONTROL = 0x0002;
-        public const int MOD_SHIFT = 0x004;
-        public const int MOD_NOREPEAT = 0x400;
-        public const int WM_HOTKEY = 0x312;
-        public const int DSIX = 0x36;
 
         public Form1()
         {
@@ -44,14 +35,8 @@ namespace esthar_practice
             );
 
             // 4. Verify if the hotkey was succesfully registered, if not, show message in the console
-            if (F9Registered)
-            {
-                Console.WriteLine("Global Hotkey F9 was succesfully registered");
-            }
-            else
-            {
-                Console.WriteLine("Global Hotkey F9 couldn't be registered !");
-            }
+            if (!F9Registered)
+                SetStatusText("Hotkey F6 couldn't be registered!");
         }
 
         protected override void WndProc(ref Message m)
@@ -100,7 +85,7 @@ namespace esthar_practice
                 .ToList();
 
             if (processes.Count == 0)
-                throw new NullReferenceException("Game not found.");
+                throw new NullReferenceException("Game not running.");
 
             return processes[0];
         }
