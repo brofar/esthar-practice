@@ -61,32 +61,6 @@ namespace esthar_practice
             Begin();
         }
 
-        private string GetVersion(Process ff8Game)
-        {
-            // Get the language from the process name (i.e. remove "FF8_" from the name)
-            string GameVersion = ff8Game.ProcessName.Substring(4);
-
-            // Update Form Title
-            SetFormText("FF8 Esthar Practice - " + GameVersion);
-
-            // DO STUFF
-            return GameVersion;
-        }
-        private Process FindGame()
-        {
-            List<Process> processes = new List<Process>();
-                processes = Process.GetProcesses()
-                .Where(x => (x.ProcessName.StartsWith("FF8_", StringComparison.OrdinalIgnoreCase))
-                            && !(x.ProcessName.Equals("FF8_Launcher", StringComparison.OrdinalIgnoreCase)))
-                .ToList();
-
-            if (processes.Count == 0)
-                throw new NullReferenceException("Game not running.");
-
-            return processes[0];
-        }
-
-
         // Thread-Safe Call to Windows Forms Control
         delegate void SetFormTextCallback(string text);
         public void SetFormText(string text)
@@ -129,10 +103,12 @@ namespace esthar_practice
 
             try {
                 // Find the FF8 process.
-                ff8Game = await Task.Run(FindGame);
+                ff8Game = await Task.Run(FF8Game.FindGame);
                 GameBaseAddress = ff8Game.MainModule.BaseAddress;
-                version = GetVersion(ff8Game).ToUpper();
+                version = FF8Game.GetVersion(ff8Game).ToUpper();
 
+                // Update text fields
+                SetFormText("FF8 Esthar Practice - " + version);
                 SetStatusText("Game found: " + version);
             }
             catch (NullReferenceException e)
