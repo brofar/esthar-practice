@@ -1,1 +1,1 @@
-﻿Go to releases, download, run, open game, click "go" or use the hotkey F6.
+﻿Go to [releases](https://github.com/brofar/esthar-practice/releases), download, run, open game, click "go" or use the hotkey F6.
