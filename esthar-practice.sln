@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "esthar-practice", "esthar-practice.csproj", "{F754B0F2-64F7-4544-816D-DAF7511B58AF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F754B0F2-64F7-4544-816D-DAF7511B58AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F754B0F2-64F7-4544-816D-DAF7511B58AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F754B0F2-64F7-4544-816D-DAF7511B58AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F754B0F2-64F7-4544-816D-DAF7511B58AF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {06B228C3-A7FE-421C-BC9A-B980DE7661DA}
+	EndGlobalSection
+EndGlobal
