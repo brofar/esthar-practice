@@ -36,6 +36,8 @@ namespace esthar_practice
 					Console.WriteLine(ex.ToString());
 				}
 
+				Console.WriteLine(string.Format("Current Version: {0}, Server Version: {1}", currentVersion, latestVersion));
+
 				if(currentVersion != latestVersion)
                 {
 					return true;
