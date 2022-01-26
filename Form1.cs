@@ -268,8 +268,6 @@ namespace esthar_practice
 
                 ConfigHandler config = new ConfigHandler();
                 config.SaveJson(savedConfigs);
-
-
             }
         }
         private static DialogResult ShowInputDialog(ref string input, bool err = false)
@@ -327,6 +325,26 @@ namespace esthar_practice
             DialogResult result = inputBox.ShowDialog();
             input = textBox.Text;
             return result;
+        }
+
+        private void btn_del_config_Click(object sender, EventArgs e)
+        {
+            SavedValue targetSavedValue = (drop_saved.SelectedItem as ComboboxItem).Value;
+
+            DialogResult dialogResult = MessageBox.Show(string.Format("Delete {0} from configs?", targetSavedValue.name), "Delete", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                savedConfigs.Remove(savedConfigs.Where(i => i.name == targetSavedValue.name).FirstOrDefault());
+
+                // Update the dropdown
+                SetDropDown(savedConfigs);
+
+                // Set the dropdown to our latest added entry.
+                drop_saved.SelectedIndex = 0;
+
+                ConfigHandler config = new ConfigHandler();
+                config.SaveJson(savedConfigs);
+            }
         }
     }
     public class ComboboxItem

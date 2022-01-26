@@ -46,7 +46,7 @@ namespace esthar_practice
             this.num_lastEnc = new System.Windows.Forms.NumericUpDown();
             this.drop_saved = new System.Windows.Forms.ComboBox();
             this.btn_save = new System.Windows.Forms.Button();
-            this.btn_manage = new System.Windows.Forms.Button();
+            this.btn_del_config = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.num_stepId)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_fraction)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_totalEnc)).BeginInit();
@@ -113,7 +113,7 @@ namespace esthar_practice
             // 
             this.btn_go.Location = new System.Drawing.Point(9, 116);
             this.btn_go.Name = "btn_go";
-            this.btn_go.Size = new System.Drawing.Size(140, 23);
+            this.btn_go.Size = new System.Drawing.Size(273, 23);
             this.btn_go.TabIndex = 7;
             this.btn_go.Text = "Go (F6)";
             this.btn_go.UseVisualStyleBackColor = true;
@@ -196,35 +196,36 @@ namespace esthar_practice
             this.drop_saved.FormattingEnabled = true;
             this.drop_saved.Location = new System.Drawing.Point(12, 12);
             this.drop_saved.Name = "drop_saved";
-            this.drop_saved.Size = new System.Drawing.Size(204, 21);
+            this.drop_saved.Size = new System.Drawing.Size(146, 21);
             this.drop_saved.TabIndex = 15;
             this.drop_saved.SelectedIndexChanged += new System.EventHandler(this.drop_saved_SelectedIndexChanged);
             // 
             // btn_save
             // 
-            this.btn_save.Location = new System.Drawing.Point(158, 116);
+            this.btn_save.Location = new System.Drawing.Point(164, 10);
             this.btn_save.Name = "btn_save";
-            this.btn_save.Size = new System.Drawing.Size(124, 23);
+            this.btn_save.Size = new System.Drawing.Size(56, 23);
             this.btn_save.TabIndex = 16;
             this.btn_save.Text = "Save";
             this.btn_save.UseVisualStyleBackColor = true;
             this.btn_save.Click += new System.EventHandler(this.btn_save_Click);
             // 
-            // btn_manage
+            // btn_del_config
             // 
-            this.btn_manage.Location = new System.Drawing.Point(222, 10);
-            this.btn_manage.Name = "btn_manage";
-            this.btn_manage.Size = new System.Drawing.Size(63, 23);
-            this.btn_manage.TabIndex = 17;
-            this.btn_manage.Text = "Manage";
-            this.btn_manage.UseVisualStyleBackColor = true;
+            this.btn_del_config.Location = new System.Drawing.Point(226, 10);
+            this.btn_del_config.Name = "btn_del_config";
+            this.btn_del_config.Size = new System.Drawing.Size(56, 23);
+            this.btn_del_config.TabIndex = 17;
+            this.btn_del_config.Text = "Delete";
+            this.btn_del_config.UseVisualStyleBackColor = true;
+            this.btn_del_config.Click += new System.EventHandler(this.btn_del_config_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(294, 161);
-            this.Controls.Add(this.btn_manage);
+            this.Controls.Add(this.btn_del_config);
             this.Controls.Add(this.btn_save);
             this.Controls.Add(this.drop_saved);
             this.Controls.Add(this.num_lastEnc);
@@ -274,7 +275,7 @@ namespace esthar_practice
         private System.Windows.Forms.NumericUpDown num_lastEnc;
         private System.Windows.Forms.ComboBox drop_saved;
         private System.Windows.Forms.Button btn_save;
-        private System.Windows.Forms.Button btn_manage;
+        private System.Windows.Forms.Button btn_del_config;
     }
 }
 
