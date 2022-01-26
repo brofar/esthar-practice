@@ -37,11 +37,7 @@ namespace esthar_practice
             CheckForUpdates();
 
             // Load saved config
-            ConfigHandler config = new ConfigHandler();
-            savedConfigs = config.LoadJson();
-            SetDropDown(savedConfigs);
-            if(drop_saved.Items.Count > 0)
-                drop_saved.SelectedIndex = 0;
+            LoadConfig();
 
             // Register Hotkey
             // https://ourcodeworld.com/articles/read/573/how-to-register-a-single-or-multiple-global-hotkeys-for-a-single-key-in-winforms
@@ -58,6 +54,14 @@ namespace esthar_practice
                 SetStatusText("Hotkey F6 couldn't be registered!");
         }
 
+        public void LoadConfig ()
+        {
+            ConfigHandler config = new ConfigHandler();
+            savedConfigs = config.LoadJson();
+            SetDropDown(savedConfigs);
+            if (drop_saved.Items.Count > 0)
+                drop_saved.SelectedIndex = 0;
+        }
         public void SetDropDown(List<SavedValue> values)
         {
             drop_saved.Items.Clear();
@@ -337,14 +341,11 @@ namespace esthar_practice
             {
                 savedConfigs.Remove(savedConfigs.Where(i => i.name == targetSavedValue.name).FirstOrDefault());
 
-                // Update the dropdown
-                SetDropDown(savedConfigs);
-
-                // Set the dropdown to our latest added entry.
-                drop_saved.SelectedIndex = 0;
-
                 ConfigHandler config = new ConfigHandler();
                 config.SaveJson(savedConfigs);
+
+                // Reload the config.
+                LoadConfig();
             }
         }
     }
