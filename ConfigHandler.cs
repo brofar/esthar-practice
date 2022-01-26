@@ -20,10 +20,8 @@ namespace esthar_practice
         public List<SavedValue> LoadJson()
         {
             List<SavedValue> savedValues = new List<SavedValue>();
-            Console.WriteLine("Checking if file exists.");
             if (File.Exists(configPath))
             {
-                Console.WriteLine("File does exist.");
                 using (StreamReader r = new StreamReader(configPath))
                 {
                     string json = r.ReadToEnd();
