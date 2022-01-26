@@ -244,6 +244,8 @@ namespace esthar_practice
             this.Controls.Add(this.label2);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(310, 200);
+            this.MinimumSize = new System.Drawing.Size(310, 200);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FF8 Esthar Practice";

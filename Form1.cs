@@ -10,6 +10,7 @@ using System.Media;
 using ProcessMemoryReaderLib;
 using System.Runtime.InteropServices;
 using System.Drawing;
+using System.Reflection;
 
 namespace esthar_practice
 {
@@ -29,9 +30,14 @@ namespace esthar_practice
         string gameVersion;
         ProcessMemoryReader reader;
         List<SavedValue> savedConfigs;
+        string formTitle;
         public Form1()
         {
             InitializeComponent();
+            // Show Version in Title
+            string currentVersion = Assembly.GetEntryAssembly().GetName().Version.ToString();
+            formTitle = "FF8 Practice " + currentVersion;
+            SetFormText(formTitle);
 
             // Check for updates.
             CheckForUpdates();
@@ -146,7 +152,7 @@ namespace esthar_practice
                 gameVersion = FF8Game.GetVersion(ff8Game).ToUpper();
 
                 // Update text fields
-                SetFormText("FF8 Esthar Practice - " + gameVersion);
+                SetFormText(formTitle + " - " + gameVersion);
                 SetStatusText("Game found: " + gameVersion);
             }
             catch (NullReferenceException e)
