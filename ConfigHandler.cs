@@ -10,8 +10,8 @@ namespace esthar_practice
 {
     class ConfigHandler
     {
-        string configName = "save.json";
-        string configPath;
+        readonly string configName = "save.json";
+        readonly string configPath;
         public ConfigHandler()
         {
             string appPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
@@ -36,7 +36,6 @@ namespace esthar_practice
                         SavedValue val = new SavedValue
                         {
                             name = "Error- Check save.json",
-                            valid = false
                         };
 
                         savedValues.Add(val);
@@ -67,15 +66,23 @@ namespace esthar_practice
         public int DangerValue;
         public int Offset;
         public int LastEncId;
-        public bool valid = true;
 
         public string Dump()
         {
             return JsonConvert.SerializeObject(this);
         }
-        public string GetName()
+        public bool IsValid()
         {
-            return name;
+            if (StepId >= 0
+                && StepFrac >= 0
+                && TotalEncs >= 0
+                && DangerValue >= 0
+                && Offset >= 0
+                && LastEncId >= 0)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -40,7 +40,8 @@ namespace esthar_practice
             ConfigHandler config = new ConfigHandler();
             savedConfigs = config.LoadJson();
             SetDropDown(savedConfigs);
-            drop_saved.SelectedIndex = 0;
+            if(drop_saved.Items.Count > 0)
+                drop_saved.SelectedIndex = 0;
 
             // Register Hotkey
             // https://ourcodeworld.com/articles/read/573/how-to-register-a-single-or-multiple-global-hotkeys-for-a-single-key-in-winforms
@@ -226,7 +227,7 @@ namespace esthar_practice
         private void drop_saved_SelectedIndexChanged(object sender, EventArgs e)
         {
             SavedValue config = (drop_saved.SelectedItem as ComboboxItem).Value;
-            if(config.valid)
+            if(config.IsValid())
             {
                 num_stepId.Value = config.StepId;
                 num_fraction.Value = config.StepFrac;
