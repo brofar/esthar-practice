@@ -44,6 +44,9 @@ namespace esthar_practice
             this.num_danger = new System.Windows.Forms.NumericUpDown();
             this.num_offset = new System.Windows.Forms.NumericUpDown();
             this.num_lastEnc = new System.Windows.Forms.NumericUpDown();
+            this.drop_saved = new System.Windows.Forms.ComboBox();
+            this.btn_save = new System.Windows.Forms.Button();
+            this.btn_manage = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.num_stepId)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_fraction)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_totalEnc)).BeginInit();
@@ -55,7 +58,7 @@ namespace esthar_practice
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 9);
+            this.label2.Location = new System.Drawing.Point(6, 41);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(43, 13);
             this.label2.TabIndex = 4;
@@ -64,7 +67,7 @@ namespace esthar_practice
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 35);
+            this.label3.Location = new System.Drawing.Point(6, 67);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(70, 13);
             this.label3.TabIndex = 6;
@@ -73,7 +76,7 @@ namespace esthar_practice
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 61);
+            this.label4.Location = new System.Drawing.Point(6, 93);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(88, 13);
             this.label4.TabIndex = 8;
@@ -82,7 +85,7 @@ namespace esthar_practice
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(161, 9);
+            this.label5.Location = new System.Drawing.Point(155, 41);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(72, 13);
             this.label5.TabIndex = 10;
@@ -91,7 +94,7 @@ namespace esthar_practice
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(161, 35);
+            this.label6.Location = new System.Drawing.Point(155, 67);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(35, 13);
             this.label6.TabIndex = 12;
@@ -100,7 +103,7 @@ namespace esthar_practice
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(161, 61);
+            this.label7.Location = new System.Drawing.Point(155, 93);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(65, 13);
             this.label7.TabIndex = 14;
@@ -108,17 +111,17 @@ namespace esthar_practice
             // 
             // btn_go
             // 
-            this.btn_go.Location = new System.Drawing.Point(15, 84);
+            this.btn_go.Location = new System.Drawing.Point(9, 116);
             this.btn_go.Name = "btn_go";
-            this.btn_go.Size = new System.Drawing.Size(273, 23);
+            this.btn_go.Size = new System.Drawing.Size(140, 23);
             this.btn_go.TabIndex = 7;
-            this.btn_go.Text = "Go";
+            this.btn_go.Text = "Go (F6)";
             this.btn_go.UseVisualStyleBackColor = true;
             this.btn_go.Click += new System.EventHandler(this.Btn_Go_Click);
             // 
             // lbl_status
             // 
-            this.lbl_status.Location = new System.Drawing.Point(15, 110);
+            this.lbl_status.Location = new System.Drawing.Point(12, 142);
             this.lbl_status.Name = "lbl_status";
             this.lbl_status.Size = new System.Drawing.Size(273, 17);
             this.lbl_status.TabIndex = 8;
@@ -127,7 +130,7 @@ namespace esthar_practice
             // 
             // num_stepId
             // 
-            this.num_stepId.Location = new System.Drawing.Point(106, 7);
+            this.num_stepId.Location = new System.Drawing.Point(100, 39);
             this.num_stepId.Name = "num_stepId";
             this.num_stepId.Size = new System.Drawing.Size(49, 20);
             this.num_stepId.TabIndex = 1;
@@ -139,14 +142,14 @@ namespace esthar_practice
             // 
             // num_fraction
             // 
-            this.num_fraction.Location = new System.Drawing.Point(106, 33);
+            this.num_fraction.Location = new System.Drawing.Point(100, 65);
             this.num_fraction.Name = "num_fraction";
             this.num_fraction.Size = new System.Drawing.Size(49, 20);
             this.num_fraction.TabIndex = 3;
             // 
             // num_totalEnc
             // 
-            this.num_totalEnc.Location = new System.Drawing.Point(106, 58);
+            this.num_totalEnc.Location = new System.Drawing.Point(100, 90);
             this.num_totalEnc.Name = "num_totalEnc";
             this.num_totalEnc.Size = new System.Drawing.Size(49, 20);
             this.num_totalEnc.TabIndex = 5;
@@ -158,7 +161,7 @@ namespace esthar_practice
             // 
             // num_danger
             // 
-            this.num_danger.Location = new System.Drawing.Point(239, 7);
+            this.num_danger.Location = new System.Drawing.Point(233, 39);
             this.num_danger.Name = "num_danger";
             this.num_danger.Size = new System.Drawing.Size(49, 20);
             this.num_danger.TabIndex = 2;
@@ -170,7 +173,7 @@ namespace esthar_practice
             // 
             // num_offset
             // 
-            this.num_offset.Location = new System.Drawing.Point(239, 33);
+            this.num_offset.Location = new System.Drawing.Point(233, 65);
             this.num_offset.Name = "num_offset";
             this.num_offset.Size = new System.Drawing.Size(49, 20);
             this.num_offset.TabIndex = 4;
@@ -182,16 +185,47 @@ namespace esthar_practice
             // 
             // num_lastEnc
             // 
-            this.num_lastEnc.Location = new System.Drawing.Point(239, 58);
+            this.num_lastEnc.Location = new System.Drawing.Point(233, 90);
             this.num_lastEnc.Name = "num_lastEnc";
             this.num_lastEnc.Size = new System.Drawing.Size(49, 20);
             this.num_lastEnc.TabIndex = 6;
+            // 
+            // drop_saved
+            // 
+            this.drop_saved.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.drop_saved.FormattingEnabled = true;
+            this.drop_saved.Location = new System.Drawing.Point(12, 12);
+            this.drop_saved.Name = "drop_saved";
+            this.drop_saved.Size = new System.Drawing.Size(204, 21);
+            this.drop_saved.TabIndex = 15;
+            this.drop_saved.SelectedIndexChanged += new System.EventHandler(this.drop_saved_SelectedIndexChanged);
+            // 
+            // btn_save
+            // 
+            this.btn_save.Location = new System.Drawing.Point(158, 116);
+            this.btn_save.Name = "btn_save";
+            this.btn_save.Size = new System.Drawing.Size(124, 23);
+            this.btn_save.TabIndex = 16;
+            this.btn_save.Text = "Save";
+            this.btn_save.UseVisualStyleBackColor = true;
+            // 
+            // btn_manage
+            // 
+            this.btn_manage.Location = new System.Drawing.Point(222, 10);
+            this.btn_manage.Name = "btn_manage";
+            this.btn_manage.Size = new System.Drawing.Size(63, 23);
+            this.btn_manage.TabIndex = 17;
+            this.btn_manage.Text = "Manage";
+            this.btn_manage.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(304, 136);
+            this.ClientSize = new System.Drawing.Size(294, 161);
+            this.Controls.Add(this.btn_manage);
+            this.Controls.Add(this.btn_save);
+            this.Controls.Add(this.drop_saved);
             this.Controls.Add(this.num_lastEnc);
             this.Controls.Add(this.num_offset);
             this.Controls.Add(this.num_danger);
@@ -208,8 +242,6 @@ namespace esthar_practice
             this.Controls.Add(this.label2);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(320, 175);
-            this.MinimumSize = new System.Drawing.Size(320, 175);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FF8 Esthar Practice";
@@ -239,6 +271,9 @@ namespace esthar_practice
         private System.Windows.Forms.NumericUpDown num_danger;
         private System.Windows.Forms.NumericUpDown num_offset;
         private System.Windows.Forms.NumericUpDown num_lastEnc;
+        private System.Windows.Forms.ComboBox drop_saved;
+        private System.Windows.Forms.Button btn_save;
+        private System.Windows.Forms.Button btn_manage;
     }
 }
 

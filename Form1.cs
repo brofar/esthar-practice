@@ -34,6 +34,12 @@ namespace esthar_practice
             // Check for updates.
             CheckForUpdates();
 
+            // Load saved config
+            ConfigHandler config = new ConfigHandler();
+            List<SavedValue> savedConfigs = config.LoadJson();
+            SetDropDown(savedConfigs);
+            drop_saved.SelectedIndex = 0;
+
             // Register Hotkey
             // https://ourcodeworld.com/articles/read/573/how-to-register-a-single-or-multiple-global-hotkeys-for-a-single-key-in-winforms
             // Set an unique id to your Hotkey, it will be used to
@@ -49,6 +55,18 @@ namespace esthar_practice
                 SetStatusText("Hotkey F6 couldn't be registered!");
         }
 
+        public void SetDropDown(List<SavedValue> values)
+        {
+            foreach(SavedValue value in values)
+            {
+                ComboboxItem item = new ComboboxItem();
+                item.Text = value.name;
+                item.Value = value;
+
+                drop_saved.Items.Add(item);
+            }
+        }
+
         protected override void WndProc(ref Message m)
         {
             // 5. Catch when a HotKey is pressed !
@@ -60,7 +78,7 @@ namespace esthar_practice
                 switch(id)
                 {
                     case 1:
-                        Begin();
+                        SetMemoryValues();
                         break;
                 }
             }
@@ -70,7 +88,7 @@ namespace esthar_practice
 
         private void Btn_Go_Click(object sender, EventArgs e)
         {
-            Begin();
+            SetMemoryValues();
         }
 
         // Thread-Safe Call to Windows Forms Control
@@ -107,7 +125,7 @@ namespace esthar_practice
                 this.lbl_status.Text = text;
             }
         }
-        public async void Begin()
+        public async void SetMemoryValues()
         {
             ff8Game = new Process();
             gameBaseAddress = new IntPtr();
@@ -201,6 +219,29 @@ namespace esthar_practice
             if(appUpdateAvailable)
                 Process.Start("https://github.com/brofar/esthar-practice/releases/latest");
         }
-    }
 
+        private void drop_saved_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SavedValue config = (drop_saved.SelectedItem as ComboboxItem).Value;
+            if(config.valid)
+            {
+                num_stepId.Value = config.StepId;
+                num_fraction.Value = config.StepFrac;
+                num_totalEnc.Value = config.TotalEncs;
+                num_danger.Value = config.DangerValue;
+                num_offset.Value = config.Offset;
+                num_lastEnc.Value = config.LastEncId;
+            }
+        }
+    }
+    public class ComboboxItem
+    {
+        public string Text { get; set; }
+        public SavedValue Value { get; set; }
+
+        public override string ToString()
+        {
+            return Text;
+        }
+    }
 }
