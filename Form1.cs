@@ -22,6 +22,11 @@ namespace esthar_practice
         // UPDATE STUFF
         bool appUpdateAvailable = false;
 
+        // GAME STUFF
+        Process ff8Game;
+        IntPtr gameBaseAddress;
+        string gameVersion;
+        ProcessMemoryReader reader;
         public Form1()
         {
             InitializeComponent();
@@ -104,19 +109,19 @@ namespace esthar_practice
         }
         public async void Begin()
         {
-            Process ff8Game = new Process();
-            IntPtr GameBaseAddress = new IntPtr();
-            string version = "";
+            ff8Game = new Process();
+            gameBaseAddress = new IntPtr();
+            gameVersion = "";
 
             try {
                 // Find the FF8 process.
                 ff8Game = await Task.Run(FF8Game.FindGame);
-                GameBaseAddress = ff8Game.MainModule.BaseAddress;
-                version = FF8Game.GetVersion(ff8Game).ToUpper();
+                gameBaseAddress = ff8Game.MainModule.BaseAddress;
+                gameVersion = FF8Game.GetVersion(ff8Game).ToUpper();
 
                 // Update text fields
-                SetFormText("FF8 Esthar Practice - " + version);
-                SetStatusText("Game found: " + version);
+                SetFormText("FF8 Esthar Practice - " + gameVersion);
+                SetStatusText("Game found: " + gameVersion);
             }
             catch (NullReferenceException e)
             {
@@ -124,43 +129,40 @@ namespace esthar_practice
                 return;
             }
 
-            // FR address = EN address - hex(328)
-            int hexOffset = (version == "EN") ? 0x0 : 0x328;
-
-            // Addresses (manipulate to correct address if FR)
-            IntPtr addressStepId = IntPtr.Add(GameBaseAddress, 0x18D2FB8 - hexOffset);
-            IntPtr addressStepFrac = IntPtr.Add(GameBaseAddress, 0x18DC740 - hexOffset);
-            IntPtr addressTotalEncs = IntPtr.Add(GameBaseAddress, 0x18DBFEC - hexOffset);
-            IntPtr addressDangerValue = IntPtr.Add(GameBaseAddress, 0x18DC74A - hexOffset);
-            IntPtr addressOffset = IntPtr.Add(GameBaseAddress, 0x18DC748 - hexOffset);
-            IntPtr addressLastEncId = IntPtr.Add(GameBaseAddress, 0x1996DA8 - hexOffset);
-
-            ProcessMemoryReader reader = new ProcessMemoryReader
+            reader = new ProcessMemoryReader
             {
                 ReadProcess = ff8Game
             };
             reader.OpenProcess();
 
-            byte[] stepId, StepFrac, TotalEncs, DangerValue, Offset, LastEncId;
+            // FR address = EN address - hex(328)
+            int hexOffset = (gameVersion == "EN") ? 0x0 : 0x328;
+
+            // Addresses (manipulate to correct address if FR)
+            int addressStepId = 0x18D2FB8 - hexOffset;
+            int addressStepFrac = 0x18DC740 - hexOffset;
+            int addressTotalEncs = 0x18DBFEC - hexOffset;
+            int addressDangerValue = 0x18DC74A - hexOffset;
+            int addressOffset = 0x18DC748 - hexOffset;
+            int addressLastEncId = 0x1996DA8 - hexOffset;
+
+            // Anti Speedrun Cheating - Add Doomtrain when program is used.
+            int addressDoomId = 0x18FDFA5 - hexOffset;
+
             try
             {
-                stepId = BitConverter.GetBytes(Convert.ToInt32(num_stepId.Value));
-                StepFrac = BitConverter.GetBytes(Convert.ToInt32(num_fraction.Value));
-                TotalEncs = BitConverter.GetBytes(Convert.ToInt32(num_totalEnc.Value));
-                DangerValue = BitConverter.GetBytes(Convert.ToInt32(num_danger.Value));
-                Offset = BitConverter.GetBytes(Convert.ToInt32(num_offset.Value));
-                LastEncId = BitConverter.GetBytes(Convert.ToInt32(num_lastEnc.Value));
-
-                // Write to game memory.
-                reader.WriteProcessMemory(addressStepId, stepId, out int _);
-                reader.WriteProcessMemory(addressStepFrac, StepFrac, out int _);
-                reader.WriteProcessMemory(addressTotalEncs, TotalEncs, out int _);
-                reader.WriteProcessMemory(addressOffset, Offset, out int _);
-                reader.WriteProcessMemory(addressLastEncId, LastEncId, out int _);
+                WriteMemoryAddress(addressStepId, Convert.ToInt32(num_stepId.Value));
+                WriteMemoryAddress(addressStepFrac, Convert.ToInt32(num_fraction.Value));
+                WriteMemoryAddress(addressTotalEncs, Convert.ToInt32(num_totalEnc.Value));
+                WriteMemoryAddress(addressDangerValue, Convert.ToInt32(num_danger.Value));
+                WriteMemoryAddress(addressOffset, Convert.ToInt32(num_offset.Value));
+                WriteMemoryAddress(addressLastEncId, Convert.ToInt32(num_lastEnc.Value));
+                WriteMemoryAddress(addressDoomId, 1);
 
                 // Danger value won't update if you assign it simultaenously.
+                // So we sleep for 100ms. Idk why.
                 Thread.Sleep(100);
-                reader.WriteProcessMemory(addressDangerValue, DangerValue, out int _);
+                WriteMemoryAddress(addressDangerValue, Convert.ToInt32(num_danger.Value));
 
                 SystemSounds.Exclamation.Play();
             }
@@ -169,6 +171,14 @@ namespace esthar_practice
                 SetStatusText("Error parsing values.");
                 return;
             }
+        }
+        private void WriteMemoryAddress(int offset, int val)
+        {
+            IntPtr address = IntPtr.Add(gameBaseAddress, offset);
+
+            byte[] value = BitConverter.GetBytes(val);
+
+            reader.WriteProcessMemory(address, value, out int _);
         }
         private async void CheckForUpdates()
         {
