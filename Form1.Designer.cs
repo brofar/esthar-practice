@@ -208,6 +208,7 @@ namespace esthar_practice
             this.btn_save.TabIndex = 16;
             this.btn_save.Text = "Save";
             this.btn_save.UseVisualStyleBackColor = true;
+            this.btn_save.Click += new System.EventHandler(this.btn_save_Click);
             // 
             // btn_manage
             // 

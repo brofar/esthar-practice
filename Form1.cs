@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Media;
 using ProcessMemoryReaderLib;
 using System.Runtime.InteropServices;
+using System.Drawing;
 
 namespace esthar_practice
 {
@@ -27,6 +28,7 @@ namespace esthar_practice
         IntPtr gameBaseAddress;
         string gameVersion;
         ProcessMemoryReader reader;
+        List<SavedValue> savedConfigs;
         public Form1()
         {
             InitializeComponent();
@@ -36,7 +38,7 @@ namespace esthar_practice
 
             // Load saved config
             ConfigHandler config = new ConfigHandler();
-            List<SavedValue> savedConfigs = config.LoadJson();
+            savedConfigs = config.LoadJson();
             SetDropDown(savedConfigs);
             drop_saved.SelectedIndex = 0;
 
@@ -57,7 +59,8 @@ namespace esthar_practice
 
         public void SetDropDown(List<SavedValue> values)
         {
-            foreach(SavedValue value in values)
+            drop_saved.Items.Clear();
+            foreach (SavedValue value in values)
             {
                 ComboboxItem item = new ComboboxItem();
                 item.Text = value.name;
@@ -211,7 +214,7 @@ namespace esthar_practice
             }
             else
             {
-                SetStatusText("Updates: Running latest version.");
+                SetStatusText("Running latest version.");
             }
         }
         private void Lbl_Status_Click(object sender, EventArgs e)
@@ -232,6 +235,98 @@ namespace esthar_practice
                 num_offset.Value = config.Offset;
                 num_lastEnc.Value = config.LastEncId;
             }
+        }
+        private void btn_save_Click(object sender, EventArgs e)
+        {
+            SavedValue newValue = new SavedValue
+            {
+                StepId = Convert.ToInt32(num_stepId.Value),
+                StepFrac = Convert.ToInt32(num_fraction.Value),
+                TotalEncs = Convert.ToInt32(num_totalEnc.Value),
+                DangerValue = Convert.ToInt32(num_danger.Value),
+                Offset = Convert.ToInt32(num_offset.Value),
+                LastEncId = Convert.ToInt32(num_lastEnc.Value)
+            };
+            string input = "";
+            DialogResult result = ShowInputDialog(ref input);
+
+            while ((savedConfigs.Where(i => i.name == input).FirstOrDefault() != null || input == "") && result == DialogResult.OK )
+            {
+                result = ShowInputDialog(ref input, true);
+            }
+
+            if (result == DialogResult.OK)
+            {
+                newValue.name = input;
+                savedConfigs.Add(newValue);
+
+                // Update the dropdown
+                SetDropDown(savedConfigs);
+
+                // Set the dropdown to our latest added entry.
+                drop_saved.SelectedIndex = drop_saved.Items.Count - 1;
+
+                ConfigHandler config = new ConfigHandler();
+                config.SaveJson(savedConfigs);
+
+
+            }
+        }
+        private static DialogResult ShowInputDialog(ref string input, bool err = false)
+        {
+            // https://stackoverflow.com/questions/97097/what-is-the-c-sharp-version-of-vb-nets-inputdialog
+            System.Drawing.Size size = new System.Drawing.Size(200, 90);
+            Form inputBox = new Form();
+
+            inputBox.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            inputBox.ClientSize = size;
+            inputBox.StartPosition = FormStartPosition.CenterParent;
+            inputBox.MinimizeBox = false;
+            inputBox.MaximizeBox = false;
+            inputBox.ShowInTaskbar = false;
+            inputBox.Text = "Name";
+
+            System.Windows.Forms.TextBox textBox = new TextBox();
+            textBox.Size = new System.Drawing.Size(size.Width - 10, 23);
+            textBox.Location = new System.Drawing.Point(5, 25);
+            textBox.Text = input;
+            inputBox.Controls.Add(textBox);
+
+            Label message = new Label();
+            message.Name = "lbl_message";
+            message.ForeColor = DefaultForeColor;
+            message.Text = "Enter a name for this set.";
+            message.Size = new System.Drawing.Size(size.Width - 10, 23);
+            message.Location = new System.Drawing.Point(3, 5);
+            if(err)
+            {
+                message.Text = "That name already exists.";
+                message.ForeColor = Color.Red;
+            }
+            inputBox.Controls.Add(message);
+
+            Button okButton = new Button();
+            okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            okButton.Name = "okButton";
+            okButton.Size = new System.Drawing.Size(75, 23);
+            okButton.Text = "&OK";
+            okButton.Location = new System.Drawing.Point(size.Width - 80 - 80, 59);
+            inputBox.Controls.Add(okButton);
+
+            Button cancelButton = new Button();
+            cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            cancelButton.Name = "cancelButton";
+            cancelButton.Size = new System.Drawing.Size(75, 23);
+            cancelButton.Text = "&Cancel";
+            cancelButton.Location = new System.Drawing.Point(size.Width - 80, 59);
+            inputBox.Controls.Add(cancelButton);
+
+            inputBox.AcceptButton = okButton;
+            inputBox.CancelButton = cancelButton;
+
+            DialogResult result = inputBox.ShowDialog();
+            input = textBox.Text;
+            return result;
         }
     }
     public class ComboboxItem

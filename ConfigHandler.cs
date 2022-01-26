@@ -35,7 +35,7 @@ namespace esthar_practice
                     {
                         SavedValue val = new SavedValue
                         {
-                            name = "JSON Parsing Error.",
+                            name = "Save File Error- Check save.json",
                             valid = false
                         };
 
