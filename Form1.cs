@@ -179,8 +179,9 @@ namespace esthar_practice
             int addressOffset = 0x18DC748 - hexOffset;
             int addressLastEncId = 0x1996DA8 - hexOffset;
 
-            // Anti Speedrun Cheating - Add Doomtrain when program is used.
-            int addressDoomId = 0x18FDFA5 - hexOffset;
+            // Anti Speedrun Cheating - Make them max SeeD level. Will be apparent at payouts.
+            int addressSeedPayout = 0x18FE9C1 - hexOffset;
+            int addressSeedPts = 0x18FE9C8 - hexOffset;
 
             try
             {
@@ -190,7 +191,8 @@ namespace esthar_practice
                 WriteMemoryAddress(addressDangerValue, Convert.ToInt32(num_danger.Value));
                 WriteMemoryAddress(addressOffset, Convert.ToInt32(num_offset.Value));
                 WriteMemoryAddress(addressLastEncId, Convert.ToInt32(num_lastEnc.Value));
-                WriteMemoryAddress(addressDoomId, 1);
+                WriteMemoryAddress(addressSeedPts, 3000);
+                WriteMemoryAddress(addressSeedPayout, 255);
 
                 // Danger value won't update if you assign it simultaenously.
                 // So we sleep for 100ms. Idk why.
