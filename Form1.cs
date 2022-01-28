@@ -57,7 +57,7 @@ namespace esthar_practice
 
             // 4. Verify if the hotkey was succesfully registered, if not, show message in the console
             if (!F9Registered)
-                SetStatusText("Hotkey F6 couldn't be registered!");
+                SetStatusText("Hotkey F6 couldn't be registered!", Color.Red);
         }
 
         public void LoadConfig ()
@@ -123,8 +123,8 @@ namespace esthar_practice
             }
         }
         // Thread-Safe Call to Windows Forms Control
-        delegate void SetStatusTextCallback(string text);
-        public void SetStatusText(string text)
+        delegate void SetStatusTextCallback(string text, Color color);
+        public void SetStatusText(string text, Color color)
         {
             // InvokeRequired required compares the thread ID of the
             // calling thread to the thread ID of the creating thread.
@@ -137,6 +137,7 @@ namespace esthar_practice
             else
             {
                 this.lbl_status.Text = text;
+                this.lbl_status.ForeColor = color;
             }
         }
         public async void SetMemoryValues()
@@ -153,11 +154,11 @@ namespace esthar_practice
 
                 // Update text fields
                 SetFormText(formTitle + " - " + gameVersion);
-                SetStatusText("Game found: " + gameVersion);
+                SetStatusText("Game found: " + gameVersion, Color.Black);
             }
             catch (NullReferenceException e)
             {
-                SetStatusText(e.Message);
+                SetStatusText(e.Message, Color.Black);
                 return;
             }
 
@@ -200,7 +201,7 @@ namespace esthar_practice
             }
             catch (Exception)
             {
-                SetStatusText("Error parsing values.");
+                SetStatusText("Error parsing values.", Color.Red);
                 return;
             }
         }
@@ -214,18 +215,18 @@ namespace esthar_practice
         }
         private async void CheckForUpdates()
         {
-            SetStatusText("Checking for updates...");
+            SetStatusText("Checking for updates...", Color.Black);
 
             bool updateRequired = await Task.Run(Updater.IsUpdateRequired);
             appUpdateAvailable = updateRequired;
 
             if (updateRequired)
             {
-                SetStatusText("New version available. Click here to download.");
+                SetStatusText("New version available. Click here to download.", Color.ForestGreen);
             }
             else
             {
-                SetStatusText("Running latest version.");
+                SetStatusText("Running latest version.", Color.Black);
             }
         }
         private void Lbl_Status_Click(object sender, EventArgs e)

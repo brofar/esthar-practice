@@ -131,6 +131,11 @@ namespace esthar_practice
             // num_stepId
             // 
             this.num_stepId.Location = new System.Drawing.Point(100, 39);
+            this.num_stepId.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
             this.num_stepId.Name = "num_stepId";
             this.num_stepId.Size = new System.Drawing.Size(49, 20);
             this.num_stepId.TabIndex = 1;
@@ -143,6 +148,11 @@ namespace esthar_practice
             // num_fraction
             // 
             this.num_fraction.Location = new System.Drawing.Point(100, 65);
+            this.num_fraction.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
             this.num_fraction.Name = "num_fraction";
             this.num_fraction.Size = new System.Drawing.Size(49, 20);
             this.num_fraction.TabIndex = 3;
@@ -150,6 +160,11 @@ namespace esthar_practice
             // num_totalEnc
             // 
             this.num_totalEnc.Location = new System.Drawing.Point(100, 90);
+            this.num_totalEnc.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
             this.num_totalEnc.Name = "num_totalEnc";
             this.num_totalEnc.Size = new System.Drawing.Size(49, 20);
             this.num_totalEnc.TabIndex = 5;
@@ -162,6 +177,11 @@ namespace esthar_practice
             // num_danger
             // 
             this.num_danger.Location = new System.Drawing.Point(233, 39);
+            this.num_danger.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
             this.num_danger.Name = "num_danger";
             this.num_danger.Size = new System.Drawing.Size(49, 20);
             this.num_danger.TabIndex = 2;
@@ -174,6 +194,11 @@ namespace esthar_practice
             // num_offset
             // 
             this.num_offset.Location = new System.Drawing.Point(233, 65);
+            this.num_offset.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
             this.num_offset.Name = "num_offset";
             this.num_offset.Size = new System.Drawing.Size(49, 20);
             this.num_offset.TabIndex = 4;
@@ -186,6 +211,11 @@ namespace esthar_practice
             // num_lastEnc
             // 
             this.num_lastEnc.Location = new System.Drawing.Point(233, 90);
+            this.num_lastEnc.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
             this.num_lastEnc.Name = "num_lastEnc";
             this.num_lastEnc.Size = new System.Drawing.Size(49, 20);
             this.num_lastEnc.TabIndex = 6;
